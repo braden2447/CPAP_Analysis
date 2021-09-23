@@ -37,25 +37,20 @@ def data_manipulation(data):
 
 def data_calculations(data):
     for i in range(len(data)):
-        s_total = 0
-        e_total = 0
-        seals = data[i][2].split(',')
-        seals.remove('Seal')
-        for x in range(len(seals)):
-            seals[x] = float(seals[x])
-            s_total += seals[x]
-        seal_avg = s_total/len(seals)
+        seal_tot = 0
+        for x in range(len(data[i][2])):  # Seal avg calculations
+            seal_tot += data[i][2][x]
+        seal_avg = seal_tot / len(data[i][2])
         seal_avg = round(seal_avg, 1)
         data[i].append(seal_avg)
 
-        events = data[i][3].split(',')
-        events.remove('Events')
-        for y in range(len(events)):
-            events[y] = float(events[y])
-            e_total += events[y]
-        events_avg = e_total/len(events)
-        events_avg = round(events_avg, 1)
-        data[i].append(events_avg)
+        event_tot = 0
+        for x in range(len(data[i][3])):  # Event avg calculations
+            event_tot += data[i][3][x]
+        event_avg = event_tot / len(data[i][3])
+        event_avg = round(event_avg, 1)
+        data[i].append(event_avg)
+
     return data
 
 
@@ -67,4 +62,5 @@ def data_calculations(data):
 if __name__ == '__main__':
     data = data_read_in()
     patients = data_manipulation(data)
-    print(patients)
+    calc = data_calculations(patients)
+    print(calc)
