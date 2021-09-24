@@ -1,3 +1,6 @@
+import json
+
+
 def data_read_in():
     sample = open('sample_data.txt', 'r')
     sample_data = sample.read()
@@ -5,11 +8,15 @@ def data_read_in():
     return sample_data
 
 
-def data_manipulation(data):
+def data_split(data):
     split = data.split("\n")
     N = 5
     patient_group = [split[i:i+N] for i in range(0, len(split), N)]
     patient_group = patient_group[0:-2]  # Deleting 'END' array item
+    return patient_group
+
+
+def data_manipulation(patient_group):
     for x in range(len(patient_group)):
         patient_group[x][1] = float(patient_group[x][1])
         # Changing hours of sleep to float
@@ -54,13 +61,25 @@ def data_calculations(data):
     return data
 
 
-'''def diagnoses(data):
+def diagnoses(data):
     for i in range(len(data)):
-        if len(data[i]) == 5:'''
+        if data[i][6] > 5:
+            if all(x >= 93 for x in data[i][4]):
+                data[i].append('apnea')
+            else:
+                data[i].append('hypoxia apnea')
+        else:
+            if all(x >= 93 for x in data[i][4]):
+                data[i].append('normal sleep')
+            else:
+                data[i].append('hypoxia')
+    return data
 
 
 if __name__ == '__main__':
     data = data_read_in()
-    patients = data_manipulation(data)
-    calc = data_calculations(patients)
-    print(calc)
+    patients = data_split(data)
+    type_convert = data_manipulation(patients)
+    calc = data_calculations(type_convert)
+    diagnosed = diagnoses(calc)
+    print(diagnosed)
