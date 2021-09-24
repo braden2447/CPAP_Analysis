@@ -42,38 +42,56 @@ def data_manipulation(patient_group):
     return patient_group
 
 
-def data_calculations(data):
-    for i in range(len(data)):
+def data_calculations(patient_data):
+    for i in range(len(patient_data)):
         seal_tot = 0
-        for x in range(len(data[i][2])):  # Seal avg calculations
-            seal_tot += data[i][2][x]
-        seal_avg = seal_tot / len(data[i][2])
+        for x in range(len(patient_data[i][2])):  # Seal avg calculations
+            seal_tot += patient_data[i][2][x]
+        seal_avg = seal_tot / len(patient_data[i][2])
         seal_avg = round(seal_avg, 1)
-        data[i].append(seal_avg)
+        patient_data[i].append(seal_avg)
 
         event_tot = 0
-        for x in range(len(data[i][3])):  # Event avg calculations
-            event_tot += data[i][3][x]
-        event_avg = event_tot / len(data[i][3])
+        for x in range(len(patient_data[i][3])):  # Event avg calculations
+            event_tot += patient_data[i][3][x]
+        event_avg = event_tot / len(patient_data[i][3])
         event_avg = round(event_avg, 1)
-        data[i].append(event_avg)
+        patient_data[i].append(event_avg)
 
-    return data
+    return patient_data
 
 
-def diagnoses(data):
-    for i in range(len(data)):
-        if data[i][6] > 5:
-            if all(x >= 93 for x in data[i][4]):
-                data[i].append('apnea')
+def diagnoses(calcs):
+    for i in range(len(calcs)):
+        if calcs[i][6] > 5:
+            if all(x >= 93 for x in calcs[i][4]):
+                calcs[i].append('apnea')
             else:
-                data[i].append('hypoxia apnea')
+                calcs[i].append('hypoxia apnea')
         else:
-            if all(x >= 93 for x in data[i][4]):
-                data[i].append('normal sleep')
+            if all(x >= 93 for x in calcs[i][4]):
+                calcs[i].append('normal sleep')
             else:
-                data[i].append('hypoxia')
-    return data
+                calcs[i].append('hypoxia')
+    return calcs
+
+
+def dictionaries(full_info):
+    dict_list = []
+    for i in range(len(full_info)):
+        name = []
+        name = full_info[i][0].split(' ')
+        print(name)
+        dict_list.append({'First Name': name[0],
+                          'Last Name': name[1],
+                          'Hours': full_info[i][1],
+                          'Seal': full_info[i][2],
+                          'Events': full_info[i][3],
+                          'O2': full_info[i][4],
+                          'Seal Average': full_info[i][5],
+                          'Diagnosis': full_info[i][7]
+                          })
+    return dict_list
 
 
 if __name__ == '__main__':
@@ -82,4 +100,5 @@ if __name__ == '__main__':
     type_convert = data_manipulation(patients)
     calc = data_calculations(type_convert)
     diagnosed = diagnoses(calc)
-    print(diagnosed)
+    dict_list = dictionaries(diagnosed)
+    print(dict_list)
