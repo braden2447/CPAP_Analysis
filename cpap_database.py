@@ -81,7 +81,6 @@ def dictionaries(full_info):
     for i in range(len(full_info)):
         name = []
         name = full_info[i][0].split(' ')
-        print(name)
         dict_list.append({'First Name': name[0],
                           'Last Name': name[1],
                           'Hours': full_info[i][1],
@@ -94,6 +93,15 @@ def dictionaries(full_info):
     return dict_list
 
 
+def output_json(dictionary_list):
+    for i in range(len(dictionary_list)):
+        out_file = open("{}-{}.json".format(dictionary_list[i]['First Name'],
+                                            dictionary_list[i]['Last Name']),
+                        'w')
+        json.dump(dictionary_list[i], out_file)
+        out_file.close()
+
+
 if __name__ == '__main__':
     data = data_read_in()
     patients = data_split(data)
@@ -101,4 +109,4 @@ if __name__ == '__main__':
     calc = data_calculations(type_convert)
     diagnosed = diagnoses(calc)
     dict_list = dictionaries(diagnosed)
-    print(dict_list)
+    output_json(dict_list)
