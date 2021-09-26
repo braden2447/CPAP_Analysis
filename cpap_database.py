@@ -34,7 +34,7 @@ def data_split(data):
     split = data.split("\n")
     N = 5
     patient_group = [split[i:i+N] for i in range(0, len(split), N)]
-    patient_group = patient_group[0:-2]  # Deleting 'END' list item
+    patient_group = patient_group[0:-1]  # Deleting 'END' list item
     return patient_group
 
 
@@ -76,7 +76,7 @@ def data_manipulation(patient_group):
 def data_calculations(patient_data):
     """Calculate mask seal leakage average and nightly event average
 
-    The input data is analyzed to calculate hte mask seal leakage average
+    The input data is analyzed to calculate the mask seal leakage average
     throughout the night as well as the nightly "event" average.  A sleep
     apnea event is characterized by a sudden state of wakefulness during
     the night due to lack of airflow while asleep.
