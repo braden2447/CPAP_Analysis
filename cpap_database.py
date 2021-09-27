@@ -1,7 +1,7 @@
 import json
 
 
-def data_read_in():
+def data_read_in(filename):
     """Read in patient data from CPAP sample file
 
     A CPAP machine, or continuous positive airway pressure machine,
@@ -13,7 +13,7 @@ def data_read_in():
 
     :returns: string containing all CPAP info from input file
     """
-    sample = open('sample_data.txt', 'r')
+    sample = open(filename, 'r')
     sample_data = sample.read()
     sample.close()
     return sample_data
@@ -182,7 +182,7 @@ def output_json(dictionary_list):
 
 
 if __name__ == '__main__':
-    data = data_read_in()
+    data = data_read_in("sample_data.txt")
     patients = data_split(data)
     type_convert = data_manipulation(patients)
     calc = data_calculations(type_convert)
