@@ -2,16 +2,14 @@
 
 ## Author: Braden Garrison
 
-## Due: 9/28/21
-
 ## Program Instructions:
 
 To run the CPAP Analysis module properly, a few specific files and file names are necessary.
 
 First, the presence of an input .txt file containing the patient data to be analyzed must be present in the same folder as the cpap_database.py module.
-This input file should be named "sample_data.txt" for the module to read in the data properly.
-If the input file is named something different, the cpap_database.py module should be modified to change the "sample_data.txt" file name in the final "main" function.
-Also, to ensure proper unit testing of one of the functions within the cpap_database.py module, a test text document named "testing_data_split.txt" must be present in the folder.
+This input file should be named ```sample_data.txt``` for the module to read in the data properly.
+If the input file is named something different, the cpap_database.py module should be modified to change the ```sample_data.txt``` file name in the final *main* function.
+Also, to ensure proper unit testing of one of the functions within the ```cpap_database.py``` module, a test text document named ```testing_data_split.txt``` must be present in the folder.
 Both of these files must contain a final line containing some form of the word "End" to indicate the end of the file.
 
 To run this program from the command line, type:
